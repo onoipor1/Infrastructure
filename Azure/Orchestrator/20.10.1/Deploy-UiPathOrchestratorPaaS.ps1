@@ -101,35 +101,35 @@ function InstallMSDeploy {
 function PublishOrchestrator {
     Write-Output "******* $(Get-Date) Step $global:stepCount: Publish orchestrator script: ******* "
     
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1 -action "Deploy" -unattended -package $env:ORCHESTRATORARTIFACT -stopApplicationBeforePublish -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -resourceGroupName $resourceGroupName -appServiceName $appServiceNameOrch -hostAdminPassword $hostAdminPassword -defaultTenantAdminPassword $defaultTenantAdminPassword -storageType "Azure" -storageLocation $storageLocation -noAzureAuthentication -verbose
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1 -action "Deploy" -unattended -package '$(System.ArtifactsDirectory)/UiPath.Orchestrator.Web.zip' -stopApplicationBeforePublish -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -resourceGroupName $resourceGroupName -appServiceName $appServiceNameOrch -hostAdminPassword $hostAdminPassword -defaultTenantAdminPassword $defaultTenantAdminPassword -storageType "Azure" -storageLocation $storageLocation -noAzureAuthentication -verbose
     
     IncrementStepCount
 }
 
 function PublishIdentityServer {
     Write-Output "******* $(Get-Date) Step $global:stepCount: publish identity script: *******"
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1 -action Deploy -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -package ${env:IDENTITYPACKAGE} -cliPackage ${env:IDENTITYCLIMIGRATOR} -stopApplicationBeforePublish -resourceGroupName $resourceGroupName -appServiceName $appServiceNameIdentity -orchestratorUrl $orchestratorUrl -noAzureAuthentication -unattended
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1 -action Deploy -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -package '$(System.ArtifactsDirectory)/UiPath.IdentityServer.Web.zip' -cliPackage ${env:IDENTITYCLIMIGRATOR} -stopApplicationBeforePublish -resourceGroupName $resourceGroupName -appServiceName $appServiceNameIdentity -orchestratorUrl $orchestratorUrl -noAzureAuthentication -unattended
     
     IncrementStepCount
 }
 
 function MigrateToIdentityServer {
     Write-Output "******* $(Get-Date) Step $global:stepCount: migrate to identity script: *******"
-    d:/a/1/s/Azure/Orchestrator/20.10.1/MigrateTo-IdentityServer.ps1 -cliPackage ${env:IDENTITYCLIMIGRATOR} -orchDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameOrch; targetSlot = "Production" } -identityServerDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameIdentity; targetSlot = "Production" } -identityServerUrl $identityServerUrl -orchestratorUrl $orchestratorUrl -noAzureAuthentication
+    d:/a/1/s/Azure/Orchestrator/20.10.1/MigrateTo-IdentityServer.ps1 -cliPackage '$(System.ArtifactsDirectory)/UiPath.IdentityServer.Migrator.Cli.zip' -orchDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameOrch; targetSlot = "Production" } -identityServerDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameIdentity; targetSlot = "Production" } -identityServerUrl $identityServerUrl -orchestratorUrl $orchestratorUrl -noAzureAuthentication
     
     IncrementStepCount
 }
 
 function PublishWebhooks {
     Write-Output "*******  $(Get-Date) Step $global:stepCount: publish web hooks script: ******* "
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Webhooks.ps1 -action "Deploy" -azureSubscriptionId $azureSubscriptionId -appServiceName $appServiceNameWebhooks -resourceGroupName $resourceGroupName -package ${env:WEBHOOKMIGRATEPACKAGE} -stopApplicationBeforePublish -noAzureAuthentication
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Webhooks.ps1 -action "Deploy" -azureSubscriptionId $azureSubscriptionId -appServiceName $appServiceNameWebhooks -resourceGroupName $resourceGroupName -package '$(System.ArtifactsDirectory)/UiPath.WebhookService.Web.zip' -stopApplicationBeforePublish -noAzureAuthentication
     
     IncrementStepCount
 }
 
 function MigrateToWebhooks {
     Write-Output "*******  $(Get-Date) Step $global:stepCount: migrate to web hooks script: ******* "
-    d:/a/1/s/Azure/Orchestrator/20.10.1/MigrateTo-Webhooks.ps1 -cliPackage ${env:MIGRATETOWEBHOOKSSCRIPT} -orchDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameOrch; targetSlot = "Production" } -webhookDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameWebhooks; targetSlot = "Production" } -noAzureAuthentication
+    d:/a/1/s/Azure/Orchestrator/20.10.1/MigrateTo-Webhooks.ps1 -cliPackage '$(System.ArtifactsDirectory)/UiPath.WebhookService.Migrator.Cli.zip' -orchDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameOrch; targetSlot = "Production" } -webhookDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameWebhooks; targetSlot = "Production" } -noAzureAuthentication
     
     IncrementStepCount
 }
