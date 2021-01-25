@@ -12,7 +12,31 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-
+- task: DownloadFileshareArtifacts@1
+  inputs:
+    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
+    artifactName: 'UiPath.Orchestrator.Web.zip'
+    downloadPath: '$(System.ArtifactsDirectory)'
+- task: DownloadFileshareArtifacts@1
+  inputs:
+    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
+    artifactName: 'UiPath.IdentityServer.Web.zip'
+    downloadPath: '$(System.ArtifactsDirectory)'
+- task: DownloadFileshareArtifacts@1
+  inputs:
+    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
+    artifactName: 'UiPath.IdentityServer.Migrator.Cli.zip'
+    downloadPath: '$(System.ArtifactsDirectory)'
+- task: DownloadFileshareArtifacts@1
+  inputs:
+    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
+    artifactName: 'UiPath.WebhookService.Web.zip'
+    downloadPath: '$(System.ArtifactsDirectory)'
+- task: DownloadFileshareArtifacts@1
+  inputs:
+    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
+    artifactName: 'UiPath.WebhookService.Migrator.Cli.zip'
+    downloadPath: '$(System.ArtifactsDirectory)'
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
