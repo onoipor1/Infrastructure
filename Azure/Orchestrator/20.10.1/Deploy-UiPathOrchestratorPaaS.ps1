@@ -65,7 +65,7 @@ Import-Module -Name AzureRM.Profile -Global -Force
 Write-Output "$(Get-Date) Done importing AzureRM modules."
 
 Write-Output "$(Get-Date) Importing custom modules..."
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) "d:/a/1/s/Azure/Orchestrator/20.10.1/ps_utils/CloudDeploymentUtils.ps1"))) -Global -Force
+Import-Module -Name "d:/a/1/s/Azure/Orchestrator/20.10.1/ps_utils/CloudDeploymentUtils.ps1" -Global -Force
 Write-Output "$(Get-Date) Done importing custom modules..."
 
 function Main {
@@ -74,8 +74,6 @@ function Main {
     $logFile = "Installation.log"
     Start-Transcript -Path $logFile -Append -IncludeInvocationHeader
     
-    InstallMSDeploy
-    LoginToAzure
     PublishOrchestrator
     PublishIdentityServer
     MigrateToIdentityServer
@@ -83,7 +81,6 @@ function Main {
     MigrateToWebhooks
     Write-Output " ******* $(Get-Date) Orchestrator installation complete *******"
     Stop-Transcript
-    SendLogToInsights -insightsKey $insightsKey -logFile $logFile
 }
 
 function InstallMSDeploy {
