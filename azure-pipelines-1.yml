@@ -19,39 +19,7 @@ steps:
     scriptLocation: inlineScript
     inlineScript: |
      mkdir $(System.ArtifactsDirectory)\BlobFile
-     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.Orchestrator.Web.zip" --account-key $(accountkey) --account-name $(accountname)
-- task: AzureCLI@1
-  displayName: 'Azure CLI '
-  inputs:
-    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
-    scriptLocation: inlineScript
-    inlineScript: |
-     mkdir $(System.ArtifactsDirectory)\BlobFile
-     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.IdentityServer.Web.zip" --account-key $(accountkey) --account-name $(accountname)
-- task: AzureCLI@1
-  displayName: 'Azure CLI '
-  inputs:
-    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
-    scriptLocation: inlineScript
-    inlineScript: |
-     mkdir $(System.ArtifactsDirectory)\BlobFile
-     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.IdentityServer.Migrator.Cli.zip" --account-key $(accountkey) --account-name $(accountname)
-- task: AzureCLI@1
-  displayName: 'Azure CLI '
-  inputs:
-    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
-    scriptLocation: inlineScript
-    inlineScript: |
-     mkdir $(System.ArtifactsDirectory)\BlobFile
-     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.WebhookService.Web.zip" --account-key $(accountkey) --account-name $(accountname)
-- task: AzureCLI@1
-  displayName: 'Azure CLI '
-  inputs:
-    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
-    scriptLocation: inlineScript
-    inlineScript: |
-     mkdir $(System.ArtifactsDirectory)\BlobFile
-     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.WebhookService.Migrator.Cli.zip" --account-key $(accountkey) --account-name $(accountname)
+     az storage blob download-batch -d $(System.ArtifactsDirectory)\BlobFile --pattern *.zip -s $(containername) --account-key $(accountkey) --account-name $(accountname)
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
