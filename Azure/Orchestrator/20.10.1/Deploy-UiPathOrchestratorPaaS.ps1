@@ -48,7 +48,6 @@ Param (
 )
 $global:stepCount = 1
 
-Write-Output "$(System.DefaultWorkingDirectory)"
 Write-Output "$env:System.DefaultWorkingDirectory"
 
 Write-Output "$(Get-Date) Unzipping ps_utils..."
