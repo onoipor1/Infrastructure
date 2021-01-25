@@ -12,31 +12,46 @@ pool:
 steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
-- task: DownloadFileshareArtifacts@1
+- task: AzureCLI@1
+  displayName: 'Azure CLI '
   inputs:
-    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
-    artifactName: 'UiPath.Orchestrator.Web.zip'
-    downloadPath: '$(System.ArtifactsDirectory)'
-- task: DownloadFileshareArtifacts@1
+    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
+    scriptLocation: inlineScript
+    inlineScript: |
+     mkdir $(System.ArtifactsDirectory)\BlobFile
+     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.Orchestrator.Web.zip" --account-key $(accountkey) --account-name $(accountname)
+- task: AzureCLI@1
+  displayName: 'Azure CLI '
   inputs:
-    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
-    artifactName: 'UiPath.IdentityServer.Web.zip'
-    downloadPath: '$(System.ArtifactsDirectory)'
-- task: DownloadFileshareArtifacts@1
+    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
+    scriptLocation: inlineScript
+    inlineScript: |
+     mkdir $(System.ArtifactsDirectory)\BlobFile
+     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.IdentityServer.Web.zip" --account-key $(accountkey) --account-name $(accountname)
+- task: AzureCLI@1
+  displayName: 'Azure CLI '
   inputs:
-    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
-    artifactName: 'UiPath.IdentityServer.Migrator.Cli.zip'
-    downloadPath: '$(System.ArtifactsDirectory)'
-- task: DownloadFileshareArtifacts@1
+    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
+    scriptLocation: inlineScript
+    inlineScript: |
+     mkdir $(System.ArtifactsDirectory)\BlobFile
+     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.IdentityServer.Migrator.Cli.zip" --account-key $(accountkey) --account-name $(accountname)
+- task: AzureCLI@1
+  displayName: 'Azure CLI '
   inputs:
-    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
-    artifactName: 'UiPath.WebhookService.Web.zip'
-    downloadPath: '$(System.ArtifactsDirectory)'
-- task: DownloadFileshareArtifacts@1
+    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
+    scriptLocation: inlineScript
+    inlineScript: |
+     mkdir $(System.ArtifactsDirectory)\BlobFile
+     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.WebhookService.Web.zip" --account-key $(accountkey) --account-name $(accountname)
+- task: AzureCLI@1
+  displayName: 'Azure CLI '
   inputs:
-    filesharePath: 'https://paastestblob.blob.core.windows.net/paas/'
-    artifactName: 'UiPath.WebhookService.Migrator.Cli.zip'
-    downloadPath: '$(System.ArtifactsDirectory)'
+    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
+    scriptLocation: inlineScript
+    inlineScript: |
+     mkdir $(System.ArtifactsDirectory)\BlobFile
+     az storage blob download --container-name $(containername) --file $(Build.ArtifactsDirectory)\BlobFile --name "UiPath.WebhookService.Migrator.Cli.zip" --account-key $(accountkey) --account-name $(accountname)
 - script: |
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
