@@ -52,17 +52,7 @@ Write-Output "$env:System.DefaultWorkingDirectory"
 
 Write-Output "$(Get-Date) Unzipping ps_utils..."
 Expand-Archive -LiteralPath "d:/a/1/s/Azure/Orchestrator/20.10.1/ps_utils.zip" -DestinationPath . -Force
-Write-Output "$(Get-Date) Unzipping AZModules..."
-Expand-Archive -LiteralPath "d:/a/1/s/Azure/Orchestrator/20.10.1/AzModules.zip" -DestinationPath . -Force
-Write-Output "$(Get-Date) Unzip done."
-
-Write-Output "$(Get-Date) Importing AzureRM modules..."
-$env:PSModulePath += ";$(Resolve-Path -Path .\AzModules)"
-Import-Module -Name AzureRM -Global -Force
-Import-Module -Name AzureRm.Storage -Global -Force
-Import-Module -Name AzureRm.WebSites -Global -Force
-Import-Module -Name AzureRM.Profile -Global -Force
-Write-Output "$(Get-Date) Done importing AzureRM modules."
+Enable-AzureRmAlias
 
 Write-Output "$(Get-Date) Importing custom modules..."
 Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) "./ps_utils/CloudDeploymentUtils.ps1"))) -Global -Force
