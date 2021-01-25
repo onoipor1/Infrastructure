@@ -101,18 +101,15 @@ function InstallMSDeploy {
 function PublishOrchestrator {
     Write-Output "******* $(Get-Date) Step $global:stepCount: Publish orchestrator script: ******* "
     
-    .\Publish-Orchestrator.ps1 `
+    "d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1 `
         -action "Deploy" `
         -unattended `
-        -package $orchestratorPackage `
+        -package $env:orchestratorPackage `
         -stopApplicationBeforePublish `
         -azureSubscriptionId $azureSubscriptionId `
         -azureAccountTenantId $azureTenantId `
         -resourceGroupName $resourceGroupName `
         -appServiceName $appServiceNameOrch `
-        -useQuartzClustered `
-        -redisConnectionString $redisConnectionString `
-        -azureSignalRConnectionString $azureSignalRConnectionString `
         -hostAdminPassword $hostAdminPassword `
         -defaultTenantAdminPassword $defaultTenantAdminPassword `
         -storageType "Azure" `
@@ -125,12 +122,12 @@ function PublishOrchestrator {
 
 function PublishIdentityServer {
     Write-Output "******* $(Get-Date) Step $global:stepCount: publish identity script: *******"
-    .\Publish-IdentityServer.ps1 `
+    "d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1" `
         -action Deploy `
         -azureSubscriptionId $azureSubscriptionId `
         -azureAccountTenantId $azureTenantId `
-        -package $identityPackage `
-        -cliPackage $identityCliPackage `
+        -package ${env:IDENTITYPACKAGE} `
+        -cliPackage ${env:IDENTITYCLIMIGRATOR} `
         -stopApplicationBeforePublish `
         -resourceGroupName $resourceGroupName `
         -appServiceName $appServiceNameIdentity `
@@ -143,8 +140,8 @@ function PublishIdentityServer {
 
 function MigrateToIdentityServer {
     Write-Output "******* $(Get-Date) Step $global:stepCount: migrate to identity script: *******"
-    .\MigrateTo-IdentityServer.ps1 `
-        -cliPackage $identityCliPackage `
+    "d:/a/1/s/Azure/Orchestrator/20.10.1/MigrateTo-IdentityServer.ps1" `
+        -cliPackage ${env:IDENTITYCLIMIGRATOR} `
         -orchDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameOrch; targetSlot = "Production" } `
         -identityServerDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameIdentity; targetSlot = "Production" } `
         -identityServerUrl $identityServerUrl `
@@ -156,12 +153,12 @@ function MigrateToIdentityServer {
 
 function PublishWebhooks {
     Write-Output "*******  $(Get-Date) Step $global:stepCount: publish web hooks script: ******* "
-    .\Publish-Webhooks.ps1 `
+    "d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Webhooks.ps1" `
         -action "Deploy" `
         -azureSubscriptionId $azureSubscriptionId `
         -appServiceName $appServiceNameWebhooks `
         -resourceGroupName $resourceGroupName `
-        -package $webhookServicePackage `
+        -package ${env:WEBHOOKMIGRATEPACKAGE} `
         -stopApplicationBeforePublish `
         -noAzureAuthentication
 
@@ -170,8 +167,8 @@ function PublishWebhooks {
 
 function MigrateToWebhooks {
     Write-Output "*******  $(Get-Date) Step $global:stepCount: migrate to web hooks script: ******* "
-    .\MigrateTo-Webhooks.ps1 `
-        -cliPackage $webhookMigrateCliPackage `
+    "d:/a/1/s/Azure/Orchestrator/20.10.1/MigrateTo-Webhooks.ps1" `
+        -cliPackage ${env:MIGRATETOWEBHOOKSSCRIPT} `
         -orchDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameOrch; targetSlot = "Production" } `
         -webhookDetails @{ resourceGroupName = $resourceGroupName; appServiceName = $appServiceNameWebhooks; targetSlot = "Production" } `
         -noAzureAuthentication
