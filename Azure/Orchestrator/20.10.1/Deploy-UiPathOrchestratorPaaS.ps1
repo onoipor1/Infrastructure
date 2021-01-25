@@ -57,7 +57,7 @@ Expand-Archive -LiteralPath "d:/a/1/s/Azure/Orchestrator/20.10.1/AzModules.zip" 
 Write-Output "$(Get-Date) Unzip done."
 
 Write-Output "$(Get-Date) Importing AzureRM modules..."
-$env:PSModulePath += ";$(Resolve-Path -Path d:/a/1/s/Azure/Orchestrator/20.10.1/AzModules)"
+$env:PSModulePath += ";$(Resolve-Path -Path .\AzModules)"
 Import-Module -Name AzureRM -Global -Force
 Import-Module -Name AzureRm.Storage -Global -Force
 Import-Module -Name AzureRm.WebSites -Global -Force
