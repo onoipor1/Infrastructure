@@ -65,7 +65,7 @@ Import-Module -Name AzureRM.Profile -Global -Force
 Write-Output "$(Get-Date) Done importing AzureRM modules."
 
 Write-Output "$(Get-Date) Importing custom modules..."
-Import-Module -Name "d:/a/1/s/Azure/Orchestrator/20.10.1/ps_utils/CloudDeploymentUtils.ps1" -Global -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) "./ps_utils/CloudDeploymentUtils.ps1"))) -Global -Force
 Write-Output "$(Get-Date) Done importing custom modules..."
 
 function Main {
