@@ -101,7 +101,7 @@ function InstallMSDeploy {
 function PublishOrchestrator {
     Write-Output "******* $(Get-Date) Step $global:stepCount: Publish orchestrator script: ******* "
     
-    "d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1 `
+    "d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1" `
         -action "Deploy" `
         -unattended `
         -package $env:orchestratorPackage `
