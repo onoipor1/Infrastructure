@@ -217,23 +217,6 @@ function Main {
 
 function Set-ScriptConstants {
 
-    if (Test-Path 'C:\Modules\azurerm_6.7.0\AzureRM\6.7.0\AzureRM.psd1') {
-        Import-AzureRmModuleFromLocalMachine
-    } else {
-        $azModules = (Get-Module AzureRM -ListAvailable -Verbose:$false | Where-Object {$_.Version.Major -ge $azureRmVersion.Major})
-        if ($azModules) {
-            Write-Host "AzureRM module version $($azureRmVersion.Major) or greater is already installed. Importing module ..."
-        } else {
-            Write-Host "AzureRM module version $azureRmVersion or later not found. Installing AzureRM $azureRmVersion" -ForegroundColor Yellow
-            Install-Module AzureRM -RequiredVersion $azureRmVersion -Force -AllowClobber
-        }
-        Import-Module AzureRM -Verbose:$false
-    }
-
-    if (!$noAzureAuthentication) {
-        AuthenticateToAzure
-    }
-
     $script:aspNetConfigName = "Web.config"
     $script:aspNetCoreConfigName = "UiPath.Orchestrator.WebCore.Host.exe.config"
     $script:dotNetCoreConfigName = "UiPath.Orchestrator.dll.config"
