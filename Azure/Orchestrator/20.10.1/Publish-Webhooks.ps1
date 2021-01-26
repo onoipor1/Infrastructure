@@ -33,10 +33,10 @@ param(
 
 Add-PSSnapin WDeploySnapin3.0
 
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\ZipUtils.ps1"            ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\MiscUtils.ps1"           ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\MsDeployUtils.ps1"       ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\AzureDeployUtils.ps1"    ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\ZipUtils.ps1"            ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\MiscUtils.ps1"           ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\MsDeployUtils.ps1"       ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\AzureDeployUtils.ps1"    ))) -Force
 
 function Main {
 
@@ -58,13 +58,6 @@ function Main {
 
     $script:tempDirectory = Join-Path ([System.IO.Path]::GetTempPath()) "azuredeploy-$(Get-Date -f "yyyyMMddhhmmssfff")"
     $script:publishSettingsPath = Join-Path $script:tempDirectory "$appServiceName.PublishSettings"
-
-    # connect to Azure RM
-    if (!$noAzureAuthentication) {
-    Ensure-AzureRm
-	
-    AuthenticateToAzure @script:azureDetails
-    }
     
     # read settings
     $publishSettings = Get-PublishSettings
