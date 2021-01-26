@@ -103,7 +103,7 @@ function PublishOrchestrator {
 
 function PublishIdentityServer {
     Write-Output "******* $(Get-Date) Step $global:stepCount: publish identity script: *******"
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1 -action Deploy -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -package 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Web.zip' -cliPackage ${env:IDENTITYCLIMIGRATOR} -stopApplicationBeforePublish -resourceGroupName $resourceGroupName -appServiceName $appServiceNameIdentity -orchestratorUrl $orchestratorUrl -noAzureAuthentication -unattended
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1 -action Deploy -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -package 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Web.zip' -cliPackage 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Migrator.Cli.zip' -stopApplicationBeforePublish -resourceGroupName $resourceGroupName -appServiceName $appServiceNameIdentity -orchestratorUrl $orchestratorUrl -noAzureAuthentication -unattended
     
     IncrementStepCount
 }
