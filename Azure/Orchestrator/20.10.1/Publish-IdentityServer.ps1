@@ -129,12 +129,6 @@ function Set-ScriptConstants {
     }
 
     $script:clientConfigFile = "clients_config.json"
-
-    Ensure-AzureRm
-
-    if (!$noAzureAuthentication) { 
-        AuthenticateToAzure @script:azureDetails
-    }
     
     if (!$tmpDirectory)
     {
