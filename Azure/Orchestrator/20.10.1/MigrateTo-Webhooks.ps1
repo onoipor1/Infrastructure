@@ -20,19 +20,13 @@ param(
 
 Add-PSSnapin WDeploySnapin3.0
 
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\ZipUtils.ps1"            ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\MiscUtils.ps1"           ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\MsDeployUtils.ps1"       ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\AzureDeployUtils.ps1"    ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\WebhooksDeployUtils.ps1" ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\ZipUtils.ps1"            ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\MiscUtils.ps1"           ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\MsDeployUtils.ps1"       ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\AzureDeployUtils.ps1"    ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location) ".\ps_utils\WebhooksDeployUtils.ps1" ))) -Force
 
 function Main {
-    if (!$noAzureAuthentication) {
-    # connect to Azure RM
-    Ensure-AzureRm
-
-    AuthenticateToAzure @script:azureDetails
-    }
 
     Set-ScriptConstants
 
