@@ -32,10 +32,10 @@ param(
 
 Add-PSSnapin WDeploySnapin3.0
 
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\MsDeployUtils.ps1"             ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\AzureDeployUtils.ps1"          ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\IdentityDeployUtils.ps1"       ))) -Force
-Import-Module ([System.IO.Path]::GetFullPath((Join-Path $PSScriptRoot ".\ps_utils\OrchestratorSettingsUtils.ps1" ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location)  ".\ps_utils\MsDeployUtils.ps1"             ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location)  ".\ps_utils\AzureDeployUtils.ps1"          ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location)  ".\ps_utils\IdentityDeployUtils.ps1"       ))) -Force
+Import-Module ([System.IO.Path]::GetFullPath((Join-Path (Get-Location)  ".\ps_utils\OrchestratorSettingsUtils.ps1" ))) -Force
 
 function Main {
     Set-ScriptConstants
@@ -86,12 +86,6 @@ function Main {
 }
 
 function Set-ScriptConstants {
-
-    Ensure-AzureRm
-
-    if (!$noAzureAuthentication) {
-        AuthenticateToAzure @script:azureDetails
-    }
 
     if (!$tmpDirectory)
     {
