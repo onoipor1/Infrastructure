@@ -215,9 +215,9 @@
                     ],
                     "phpVersion": "off",
                     "netFrameworkVersion": "v4.5",
-                    "use32BitWorkerProcess": "true",
+                    "use32BitWorkerProcess": "false",
                     "webSocketsEnabled": true,
-                    "alwaysOn": "false",
+                    "alwaysOn": "true",
                     "httpLoggingEnabled": true,
                     "logsDirectorySizeLimit": 40,
                     "vnetName": "[if(parameters('EnableHAA'), parameters('virtualNetworkName'), '')]"
@@ -340,9 +340,9 @@
                     ],
                     "phpVersion": "off",
                     "netFrameworkVersion": "v4.5",
-                    "use32BitWorkerProcess": "true",
+                    "use32BitWorkerProcess": "false",
                     "webSocketsEnabled": true,
-                    "alwaysOn": "false",
+                    "alwaysOn": "true",
                     "httpLoggingEnabled": true,
                     "logsDirectorySizeLimit": 40,
                     "vnetName": "[if(parameters('EnableHAA'), parameters('virtualNetworkName'), '')]"
@@ -384,9 +384,9 @@
                 "siteConfig": {
                     "phpVersion": "off",
                     "netFrameworkVersion": "v4.5",
-                    "use32BitWorkerProcess": "true",
+                    "use32BitWorkerProcess": "false",
                     "webSocketsEnabled": true,
-                    "alwaysOn": "false",
+                    "alwaysOn": "true",
                     "httpLoggingEnabled": true,
                     "logsDirectorySizeLimit": 40,
                     "metadata": [
