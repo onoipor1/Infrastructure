@@ -15,7 +15,7 @@ steps:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: 'DeploymentTest'
     subscriptionId: 'bf04c084-4451-4de0-a557-5bfa03145769'
-    action: 'Create or Update Resource Group'
+    action: Create Or Update Resource Group
     resourceGroupName: 'PaaSTest'
     location: 'East US'
     templateLocation: 'URL of the file'
