@@ -23,30 +23,3 @@ steps:
     csmParametersFileLink: 'https://github.com/onoipor1/Infrastructure/raw/main/Azure/Orchestrator/deploy.json'
     deploymentMode: 'Incremental'
     deploymentName: 'InfraDeploy'
-- task: AzureCLI@1
-  displayName: 'Download Artifacts'
-  inputs:
-    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
-    scriptLocation: inlineScript
-    inlineScript: |
-     mkdir $(System.ArtifactsDirectory)\BlobFile
-     az storage blob download-batch -d $(System.ArtifactsDirectory)\BlobFile --pattern *.zip -s $(containername) --account-key $(accountkey) --account-name $(accountname)
-- task: AzurePowerShell@5
-  displayName: 'Deploy Resources'
-  inputs:
-    azureSubscription: 'Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)'
-    AzurePowerShellVersion: 'LatestVersion'
-    ScriptType: 'FilePath'
-    ScriptPath: '$(System.DefaultWorkingDirectory)\Azure\Orchestrator\20.10.1\Deploy-UiPathOrchestratorPaaS.ps1'
-    ScriptArguments:
-     -azureSubscriptionId $(SubscriptionID)
-     -azureTenantId $(TENANTID)
-     -resourceGroupName $(RGNAME)
-     -appServiceNameOrch $(ORCHNAME)
-     -appServiceNameIdentity $(IDNAME)
-     -appServiceNameWebhooks $(WEBHOOKNAME)
-     -hostAdminPassword $(ORCHPASSWORD)
-     -defaultTenantAdminPassword $(ORCHPASSWORD)
-     -storageLocation $(STORAGELOCATION)
-     -identityServerUrl $(identityurl)
-     -orchestratorUrl $(ORCHURL)
