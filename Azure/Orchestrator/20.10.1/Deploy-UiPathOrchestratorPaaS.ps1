@@ -13,6 +13,8 @@ Param (
     [Parameter(Mandatory = $true)]
     [String] $appServiceNameWebhooks,
     [Parameter(Mandatory = $false)]
+    [String] $action,
+    [Parameter(Mandatory = $true)]
     [String] $hostAdminPassword,
     [Parameter(Mandatory = $false)]
     [String] $defaultTenantAdminPassword,
@@ -96,14 +98,14 @@ function LoginToAzure {
 function PublishOrchestrator {
     Write-Output "******* $(Get-Date) Step $global:stepCount: Publish orchestrator script: ******* "
     
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1 -action "Deploy" -unattended -package 'D:\a\1\a\BlobFile\UiPath.Orchestrator.Web.zip' -stopApplicationBeforePublish -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -resourceGroupName $resourceGroupName -appServiceName $appServiceNameOrch -hostAdminPassword $hostAdminPassword -defaultTenantAdminPassword $defaultTenantAdminPassword -storageType "Azure" -storageLocation $storageLocation -noAzureAuthentication -verbose
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Orchestrator.ps1 -action $action -unattended -package 'D:\a\1\a\BlobFile\UiPath.Orchestrator.Web.zip' -stopApplicationBeforePublish -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -resourceGroupName $resourceGroupName -appServiceName $appServiceNameOrch -hostAdminPassword $hostAdminPassword -defaultTenantAdminPassword $defaultTenantAdminPassword -storageType "Azure" -storageLocation $storageLocation -noAzureAuthentication -verbose
     
     IncrementStepCount
 }
 
 function PublishIdentityServer {
     Write-Output "******* $(Get-Date) Step $global:stepCount: publish identity script: *******"
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1 -action Deploy -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -package 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Web.zip' -cliPackage 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Migrator.Cli.zip' -stopApplicationBeforePublish -resourceGroupName $resourceGroupName -appServiceName $appServiceNameIdentity -orchestratorUrl $orchestratorUrl -noAzureAuthentication -unattended
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-IdentityServer.ps1 -action $action -azureSubscriptionId $azureSubscriptionId -azureAccountTenantId $azureTenantId -package 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Web.zip' -cliPackage 'D:\a\1\a\BlobFile\UiPath.IdentityServer.Migrator.Cli.zip' -stopApplicationBeforePublish -resourceGroupName $resourceGroupName -appServiceName $appServiceNameIdentity -orchestratorUrl $orchestratorUrl -noAzureAuthentication -unattended
     
     IncrementStepCount
 }
@@ -117,7 +119,7 @@ function MigrateToIdentityServer {
 
 function PublishWebhooks {
     Write-Output "*******  $(Get-Date) Step $global:stepCount: publish web hooks script: ******* "
-    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Webhooks.ps1 -action "Deploy" -azureSubscriptionId $azureSubscriptionId -appServiceName $appServiceNameWebhooks -resourceGroupName $resourceGroupName -package 'D:\a\1\a\BlobFile\UiPath.WebhookService.Web.zip' -stopApplicationBeforePublish -noAzureAuthentication
+    d:/a/1/s/Azure/Orchestrator/20.10.1/Publish-Webhooks.ps1 -action $action -azureSubscriptionId $azureSubscriptionId -appServiceName $appServiceNameWebhooks -resourceGroupName $resourceGroupName -package 'D:\a\1\a\BlobFile\UiPath.WebhookService.Web.zip' -stopApplicationBeforePublish -noAzureAuthentication
     
     IncrementStepCount
 }
