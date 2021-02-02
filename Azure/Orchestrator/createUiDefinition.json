@@ -7,14 +7,6 @@
 			"isWizard": true,
 			"basics": {
 				"resourceGroup": {
-					"constraints": {
-						"validations": [
-							{
-								"permission": "Microsoft.Authorization/roleAssignments/write",
-								"message": "You do not have permissions to create role assignments (Microsoft.Authorization/roleAssignments/write)."
-							}
-						]
-					},
 					"allowExisting": true
 				}
 			}
@@ -344,23 +336,6 @@
 								"toolTip": "The name of the Certificate resource which will be deployed."
 							},
 							{
-								"name": "OrchMSIName",
-								"label": "Orchestrator User Assigned MI",
-								"type": "Microsoft.Common.TextBox",
-								"defaultValue": "[concat('orch',substring(toLower(guid()),0,5),'msi')]",
-								"visible": true,
-								"constraints": {
-									"required": true,
-									"validations": [
-										{
-											"regex": "^[a-z0-9A-Z-]{3,128}$",
-											"message": "User Assigned Managed Identity Name must comply with the following name rules: At least 3 characters in length and a maximum of 128 characters. Must be unique within the resource group. Can only contain characters and digits and the characters - and _."
-										}
-									]
-								},
-								"toolTip": "The name of the User Assigned Managed Identity resource which will be deployed."
-							},
-							{
 								"name": "HAAAvailabilitySetName",
 								"label": "High Availability Add-On Av. Set",
 								"type": "Microsoft.Common.TextBox",
@@ -455,37 +430,24 @@
 						"name": "orchestratorVersion",
 						"label": "Orchestrator version",
 						"type": "Microsoft.Common.DropDown",
-						"defaultValue": "20.10.1",
+						"defaultValue": "20.10.5",
 						"constraints": {
 							"allowedValues": [
 								{
 									"label": "20.10.1",
-									"value": "20.10.1"
+									"value": "20.10.1",
+									"label": "20.10.2",
+									"value": "20.10.2",
+									"label": "20.10.3",
+									"value": "20.10.3",
+									"label": "20.10.4",
+									"value": "20.10.4",
+									"label": "20.10.5",
+									"value": "20.10.5"
 								}
 							]
 						},
 						"toolTip": "Select the version of the UiPath Orchestrator you want to deploy."
-					},
-					{
-						"name": "orchestratorAdminPassword",
-						"type": "Microsoft.Compute.CredentialsCombo",
-						"visible": true,
-						"label": {
-							"password": "Password",
-							"confirmPassword": "Confirm password"
-						},
-						"constraints": {
-							"required": true,
-							"customPasswordRegex": "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[\\w~@#$%^&*+=|{}:;.?\\()\\[\\]-]{12,}$",
-							"customValidationMessage": "The password must be 12 to 35 characters long with at least 1 uppercase, 1 lowercase and 1 number. Can contain special characters with the exception of \\ or !."
-						},
-						"toolTip": {
-							"password": "Define the password that will be used for the host administrator and the default tenant administrator account (admin)."
-						},
-						"options": {
-							"hideConfirmation": false
-						},
-						"osPlatform": "Windows"
 					},
 					{
 						"name": "orchestratorInstances",
@@ -876,9 +838,8 @@
 		"outputs": {
 			"location": "[location()]",
 			"appName": "[steps('AdvancedConfig').orchestratorName]",
-			"orchestratorAdminPassword": "[steps('OrchSetup').orchestratorAdminPassword.password]",
-			"orchestratorVersion": "[steps('OrchSetup').orchestratorVersion]",
 			"orchestratorSize": "[steps('OrchSetup').orchestratorSize]",
+			"orchestratorVersion": "[steps('OrchSetup').orchestratorVersion]",
 			"orchestratorInstances": "[int(steps('OrchSetup').orchestratorInstances)]",
 			"EnableHAA": "[or(greater(int(steps('OrchSetup').orchestratorInstances), 1), equals(steps('HAAServer').HighAvailabilityAddon, 'Yes'))]",
 			"HAAVMAdminLogin": "[steps('HAAServer').HAADetails.HAAVMAdminLogin]",
@@ -905,7 +866,6 @@
 			"OrchIdentityAppServiceName": "[if(equals(steps('AdvancedConfig').AdvConfVisibility, 'Yes'),steps('AdvancedConfig').AdvancedConfigurationDetails.OrchIdentityAppServiceName,concat(steps('AdvancedConfig').orchestratorName,'-is'))]",
 			"OrchWebhooksAppServiceName": "[if(equals(steps('AdvancedConfig').AdvConfVisibility, 'Yes'),steps('AdvancedConfig').AdvancedConfigurationDetails.OrchWebhooksAppServiceName,concat(steps('AdvancedConfig').orchestratorName,'-wh'))]",
 			"OrchCertificate": "[if(equals(steps('AdvancedConfig').AdvConfVisibility, 'Yes'),steps('AdvancedConfig').AdvancedConfigurationDetails.OrchCertificate,if(greaterOrEquals(length(steps('AdvancedConfig').orchestratorName),25),concat(substring(steps('AdvancedConfig').orchestratorName,0,25),'-cert'),concat(steps('AdvancedConfig').orchestratorName,'-cert')))]",
-			"OrchMSIName": "[if(equals(steps('AdvancedConfig').AdvConfVisibility, 'Yes'),steps('AdvancedConfig').AdvancedConfigurationDetails.OrchMSIName,concat(steps('AdvancedConfig').orchestratorName,'-msi'))]",
 			"HAAAvailabilitySetName": "[if(equals(steps('AdvancedConfig').AdvConfVisibility, 'Yes'),steps('AdvancedConfig').AdvancedConfigurationDetails.HAAAvailabilitySetName,concat(steps('AdvancedConfig').orchestratorName,'-haa-as'))]",
 			"HAANSGName": "[if(equals(steps('AdvancedConfig').AdvConfVisibility, 'Yes'),steps('AdvancedConfig').AdvancedConfigurationDetails.HAANSGName,concat(steps('AdvancedConfig').orchestratorName,'-haa-nsg'))]",
 			"HAAVnetName": "[steps('HAAServer').HAADetails.HAAVirtualNetwork.name]",
