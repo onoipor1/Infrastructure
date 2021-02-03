@@ -13,7 +13,7 @@ steps:
 - task: AzureCLI@1
   displayName: 'Azure CLI '
   inputs:
-    azureSubscription: '$(SubscriptionID)'
+    azureSubscription: '$(AzureSubscriptionID)'
     scriptLocation: inlineScript
     inlineScript: |
      mkdir $(System.ArtifactsDirectory)\BlobFile
@@ -21,12 +21,12 @@ steps:
 
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: '$(SubscriptionID)'
+    azureSubscription: '$(AzureSubscriptionID)'
     AzurePowerShellVersion: 'LatestVersion'
     ScriptType: 'FilePath'
     ScriptPath: '$(System.DefaultWorkingDirectory)\Azure\Orchestrator\20.10.1\Deploy-UiPathOrchestratorPaaS.ps1'
     ScriptArguments:
-     -azureSubscriptionId $(SubscriptionID)
+     -azureSubscriptionId $(SUBSCRIPTIONID)
      -azureTenantId $(TENANTID)
      -resourceGroupName $(RGNAME)
      -appServiceNameOrch $(ORCHNAME)
