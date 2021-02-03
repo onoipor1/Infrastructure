@@ -12,7 +12,7 @@ variables:
  # Resource Group to Deploy to
   RGName: PaaSTest  
 # SubscriptionID to deploy to
-  AzureSubscriptionID: bf04c084-4451-4de0-a557-5bfa03145769
+  SubscriptionID: bf04c084-4451-4de0-a557-5bfa03145769
 # Account Key for Storage Account.  Navigate to Storage Account in Azure Portal under settings select access keys locate key value 1 click copy and paste below
   accountkey: ZpssxsR6+GKHvjlmDISJj249hhfDscxa/2OwYSC7YVGeZgLcLPYb3YTIcaAxqqhL3Ah24h75FvWbck2ftTd8cQ==
 # Storage Account Name For Artifacts
@@ -22,4 +22,4 @@ variables:
  # Blob Storage Location can be guessed as format is typically https://accountname.blob.core.windows.net
   storagelocation: https://paastestblob.blob.core.windows.net/
   tenantID: 0e7ca204-7c89-4fa3-8bbe-32267db24e08
-  SubscriptionID: "Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)"
+  AzureSubscriptionID: "Free Trial(1)(bf04c084-4451-4de0-a557-5bfa03145769)"
