@@ -9,10 +9,7 @@ variables:
     - template: '/tree/main/Azure/Orchestrator/var.yml'
 pool:
   vmImage: 'Windows-latest'
-
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 - task: AzureCLI@1
   displayName: 'Azure CLI '
   inputs:
@@ -21,10 +18,7 @@ steps:
     inlineScript: |
      mkdir $(System.ArtifactsDirectory)\BlobFile
      az storage blob download-batch -d $(System.ArtifactsDirectory)\BlobFile --pattern *.zip -s $(containername) --account-key $(accountkey) --account-name $(accountname)
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: '$(SubscriptionID)'
