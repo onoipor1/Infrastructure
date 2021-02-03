@@ -1,13 +1,13 @@
 variables:
 # Identity Server Settings
   IdName:  paastestdeploy-is
-  identityurl: https://paastestdeploy-is.azurewebsites.net/identity\
+  identityurl: https://paastestdeploy-is.azurewebsites.net/identity
  # Webhook Server Settings
   webhookname: paastestdeploy-wh
  # Orchestrator Server Settings
   OrchName:  paastestdeploy
   OrchPassword: Temp12345678
-  OrchUrl: https://paastestdeploy.azurewebsites.net/\
+  OrchUrl: https://paastestdeploy.azurewebsites.net/
  # Resources/Subscription Info
  # Resource Group to Deploy to
   RGName: PaaSTest  
