@@ -6,7 +6,7 @@
 trigger:
 - main
 variables:
-    - template: '/tree/main/Azure/Orchestrator/var.yml'
+    - template: 'onoipor1\Infrastructure\tree\main\Azure\Orchestrator\var.yml'
 pool:
   vmImage: 'Windows-latest'
 steps:
